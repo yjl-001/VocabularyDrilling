@@ -1,0 +1,12 @@
+{
+  "pages": ["pages/feed/feed", "pages/sources/sources"],
+  "window": {
+    "navigationBarTitleText": "刷词英语",
+    "navigationBarBackgroundColor": "#F3F0E8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F3F0E8",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

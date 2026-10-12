@@ -1,0 +1,20 @@
+<view class="sources-page">
+  <text class="kicker">ABOUT THE WORD CARDS</text>
+  <view class="heading"><text>每张卡片，</text><text>都有来处。</text></view>
+  <text class="intro">当前是交互样本，共 12 个词义、24 张词卡。英文例句、选项和解释为本项目编写，尚待第二位内容编辑复核。</text>
+
+  <view class="source-card">
+    <text class="source-number">01 / 候选词筛选</text>
+    <text class="source-name">ECDICT</text>
+    <text class="source-copy">样本词依据 ECDICT 词条中的 CET6 或 IELTS 标签筛选，并在 2026-10-11 核对。标签仅用于候选筛选，不代表官方考试词表认证。没有直接复制词典释义或例句。</text>
+    <text class="source-url" data-url="https://github.com/skywind3000/ECDICT" bindtap="copyLink">github.com/skywind3000/ECDICT ↗</text>
+  </view>
+
+  <view class="source-card">
+    <text class="source-number">02 / 样本内容</text>
+    <text class="source-name">本项目原创</text>
+    <text class="source-copy">24 条英文例句、两套选择题及反馈解释为原型编写。正式发布前须再次审核表达自然性、词义对应关系与选项唯一性。</text>
+  </view>
+
+  <view class="source-foot">后续若使用开放语料，会在这里列出逐句来源、许可、署名和修改情况。</view>
+</view>

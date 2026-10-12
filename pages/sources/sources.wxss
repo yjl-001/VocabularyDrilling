@@ -1,0 +1,10 @@
+.sources-page { min-height: 100vh; box-sizing: border-box; padding: 72rpx 42rpx 95rpx; background: #f3f0e8; color: #253a31; }
+.kicker, .source-number { display: block; font-family: sans-serif; font-size: 20rpx; letter-spacing: 3rpx; font-weight: 700; color: #bf7052; }
+.heading { display: flex; flex-direction: column; font-size: 63rpx; line-height: 1.16; font-weight: 700; margin: 25rpx 0 31rpx; }
+.intro { display: block; font-family: sans-serif; font-size: 29rpx; line-height: 1.7; color: #5b6b60; margin-bottom: 50rpx; }
+.source-card { border-top: 2rpx solid #aebcae; padding: 30rpx 0 48rpx; }
+.source-number { color: #859788; letter-spacing: 1rpx; }
+.source-name { display: block; font-size: 39rpx; font-weight: 700; margin-top: 19rpx; }
+.source-copy { display: block; font-family: sans-serif; color: #617064; line-height: 1.65; font-size: 25rpx; margin-top: 16rpx; }
+.source-url { display: block; font-family: sans-serif; color: #a65e43; font-size: 23rpx; margin-top: 22rpx; text-decoration: underline; }
+.source-foot { font-family: sans-serif; color: #91a095; font-size: 21rpx; line-height: 1.6; margin-top: 10rpx; }

@@ -1,0 +1,13 @@
+# Local WeChat Developer Tools settings
+project.private.config.json
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Local dependencies and generated output
+node_modules/
+dist/
+build/
+coverage/

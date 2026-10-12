@@ -1,0 +1,86 @@
+<view class="screen">
+  <view class="masthead">
+    <view class="brand-mark">刷<text class="brand-accent">词</text></view>
+    <view class="masthead-right">
+      <text class="micro-label">CONTEXT FIRST</text>
+      <text class="page-count">{{currentDisplay}} <text class="count-slash">/</text> {{totalDisplay}}</text>
+    </view>
+  </view>
+
+  <swiper class="feed" vertical="{{true}}" current="{{current}}" duration="320" bindchange="onSwiperChange">
+    <swiper-item wx:for="{{cards}}" wx:for-item="card" wx:key="id">
+      <view class="card">
+        <view class="card-topline">
+          <text class="eyebrow">{{card.round === 1 ? 'FIRST ENCOUNTER' : 'ANOTHER CONTEXT'}}</text>
+          <text class="chapter-index">{{card.id}}</text>
+        </view>
+
+        <view class="sentence-block">
+          <text class="quote-mark">“</text>
+          <view class="sentence">
+            <block wx:for="{{card.tokens}}" wx:for-item="piece" wx:key="id">
+              <text wx:if="{{piece.interactive}}" class="sentence-word tappable"
+                data-word="{{piece.word}}" data-gloss="{{piece.gloss}}" data-card="{{card.id}}"
+                catchtap="onTokenTap">{{piece.text}}</text>
+              <text wx:else class="{{piece.target ? 'sentence-word target-word' : 'sentence-word'}}">{{piece.text}}</text>
+            </block>
+          </view>
+          <text class="sentence-rule"></text>
+          <text class="sentence-hint">轻点其他单词，随时查看意思</text>
+        </view>
+
+        <view class="question-block">
+          <view class="question-head">
+            <text class="question-number">01 / GUESS</text>
+            <text class="question-tag">{{card.questionKind}}</text>
+          </view>
+          <text class="question-title">划线词在这里是什么意思？</text>
+          <text wx:if="{{card.questionKind === '英文近义词'}}" class="option-instruction">点英文词看释义，点右侧圆点作答</text>
+
+          <view class="option-list">
+            <view wx:for="{{card.options}}" wx:for-item="option" wx:key="index"
+              class="option {{option.state}} {{card.questionKind === '英文近义词' ? 'english-option' : ''}}"
+              data-card="{{card.id}}" data-option="{{option.index}}"
+              bindtap="onOptionRowTap">
+              <text class="option-letter">{{option.letter}}</text>
+              <text wx:if="{{card.questionKind === '英文近义词'}}" class="option-text option-gloss"
+                data-word="{{option.label}}" data-gloss="{{option.gloss}}" data-card="{{card.id}}"
+                catchtap="onOptionGloss">{{option.label}}</text>
+              <text wx:else class="option-text">{{option.label}}</text>
+              <view wx:if="{{card.questionKind === '英文近义词'}}" class="select-dot"
+                data-card="{{card.id}}" data-option="{{option.index}}" catchtap="onAnswer"></view>
+              <text wx:else class="option-end">↗</text>
+            </view>
+          </view>
+
+          <view wx:if="{{card.answered}}" class="feedback {{card.correct ? 'feedback-correct' : 'feedback-wrong'}}">
+            <text class="feedback-label">{{card.correct ? '答对了 · NICE WORK' : '再认识一次 · KEEP GOING'}}</text>
+            <text class="feedback-meaning">{{card.word}} · {{card.meaning}}</text>
+            <text class="feedback-copy">{{card.explanation}}</text>
+          </view>
+        </view>
+
+        <view class="card-footer">
+          <text wx:if="{{card.isLast}}" class="swipe-hint">这是本轮样本的最后一张</text>
+          <text wx:elif="{{!card.answered}}" class="swipe-hint">↑ 上滑继续，想一想再选也可以</text>
+          <text wx:else class="swipe-hint">↑ 上滑看看下一个语境</text>
+          <button wx:if="{{card.isLast}}" class="restart-button" bindtap="restartSample">再刷一轮</button>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="bottom-bar">
+    <text class="bottom-note">不设每日任务，刷到哪里算哪里。</text>
+    <text class="source-link" bindtap="openSources">内容来源 ↗</text>
+  </view>
+</view>
+
+<view wx:if="{{tip}}" class="tip-overlay" catchtap="closeTip">
+  <view class="tip-sheet" catchtap="noOp">
+    <view class="tip-kicker">QUICK LOOK</view>
+    <text class="tip-word">{{tip.word}}</text>
+    <text class="tip-gloss">{{tip.gloss}}</text>
+    <text class="tip-close" bindtap="closeTip">继续猜词 ×</text>
+  </view>
+</view>

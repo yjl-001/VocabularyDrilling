@@ -1,0 +1,7 @@
+page {
+  background: #f3f0e8;
+  color: #25332e;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+button::after { border: 0; }
