@@ -1,28 +1,30 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
+## Project Structure
 
-This repository is a native WeChat Mini Program. `app.js`, `app.json`, and `app.wxss` define the app shell. Each route lives under `pages/` with matching `.js`, `.json`, `.wxml`, and `.wxss` files; `pages/feed/` is the learning flow and `pages/sources/` shows content attribution. `lib/feed.js` builds and validates cards. `content/deck.js` holds sample questions, `content/glossary.js` holds tap-to-define text, and `content/SOURCES.md` records source checks. Tests are in `test/`. Product and editorial notes live in the root Markdown files and `content/EDITORIAL_REVIEW.md`.
+`app.js`, `app.json`, and `app.wxss` define the app shell. `pages/feed/` contains the learning screen; `pages/sources/` contains attribution. `lib/feed.js` builds cards, `content/` holds sample questions and glosses, and `test/` holds Node tests. Requirements and editorial checks are in root Markdown files and `content/EDITORIAL_REVIEW.md`.
 
-## Build, Test, and Development Commands
+## Task Isolation
 
-- `npm test` (or `node --test`) runs all automated tests; no package install is required.
-- Import this directory into WeChat Developer Tools and select **Compile** to run the Mini Program locally. Use a personal AppID for upload or release; the checked-in configuration is for local testing.
+Use one task, one `feature/<name>`, `fix/<name>`, `refactor/<name>`, or `experiment/<name>` branch, one isolated worktree, one Codex thread, and one pull request. Start from `main`; create a new worktree and branch before editing. Do not reuse worktrees or edit outside them. Read this file before coding. Treat `main` as the stable integration target: never edit, commit, or merge into it directly.
 
-There is no separate build script or backend. Check UI changes in the simulator, including card swipes, answer feedback, source navigation, and progress after reopening.
+## Development and Validation
 
-## Coding Style & Naming Conventions
+- `npm test` runs all automated tests with `node:test`; no package install is needed.
+- Import the directory in WeChat Developer Tools and select **Compile** for the Mini Program build and simulator checks.
 
-Follow the existing JavaScript style: two-space indentation, single quotes, no semicolons, and `camelCase` for variables and functions. Use `UPPER_SNAKE_CASE` for constants such as storage keys. Keep page files named after their route (`feed.js`, `feed.wxml`, and so on). Use CommonJS `require` and `module.exports` in shared logic. No formatter or linter is configured; keep changes consistent with nearby code.
+No `build`, `lint`, integration, or E2E script exists; report only checks run. For UI changes, check swipes, feedback, source navigation, and restored progress in the simulator. Add `test/*.test.js` cases for changed card, storage, or content rules. Content must retain four distinct options, one target word per example, and complete glossary coverage; run `validateContent()` through the tests and review wording and attribution manually. A failed check blocks completion.
 
-## Testing Guidelines
+## Coding Style
 
-Tests use `node:test` and `node:assert/strict`; name files `*.test.js` under `test/`. Add focused tests for card ordering, answer restoration, storage behavior, or content validation when changing those rules. Run `npm test` before submitting. Content edits must preserve four distinct options, one target word per example, and glossary coverage; `validateContent()` checks these constraints. Also review wording and source attribution manually.
+Follow nearby JavaScript: two-space indentation, single quotes, no semicolons, `camelCase` names, and `UPPER_SNAKE_CASE` constants. Shared modules use CommonJS. Keep each page's `.js`, `.json`, `.wxml`, and `.wxss` names aligned. No formatter or linter is configured.
 
-## Commits & Pull Requests
+## Commits and Pull Requests
 
-This checkout contains no Git history, so no established commit format can be verified. Use short, imperative subjects that describe the change, such as `Add glossary coverage for new cards`. In pull requests, summarize behavior and content changes, report test and simulator results, link relevant issues, and include screenshots for visible UI changes. Note any changes to local storage keys, content version, or attribution.
+Commit one logical change after validation, using `<type>: <description>` with `feat`, `fix`, `refactor`, `test`, `docs`, or `chore`; for example, `docs: define task workflow`. Push the task branch and open a PR to `main`. Include **Summary**, **Testing**, and **Risk** sections, link relevant issues, and attach screenshots for visible UI changes. Mention changes to storage keys, content version, privacy, or attribution. Do not merge while CI fails.
 
-## Configuration & Release
+For coordinated releases, merge task branches into `integration/<name>` through PRs, validate each merge, then open an integration PR to `main`. Require passing checks and review before merging. Configure GitHub branch protection for `main` when the remote baseline exists; this document alone does not enforce protection.
 
-Keep personal AppIDs and local settings out of shared commits. The prototype stores progress and recent events on device; review privacy text and the editorial checklist before public release.
+## Configuration and Release
+
+Keep `project.private.config.json`, personal AppIDs, and local settings out of commits. The prototype stores progress and recent events on device; review privacy text and the editorial checklist before public release.
