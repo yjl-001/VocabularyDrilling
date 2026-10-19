@@ -1,8 +1,10 @@
 # Repository Guidelines
 
-## Project Structure
+## Project Structure & Product Docs
 
-`app.*` defines the Mini Program shell. `pages/feed/` contains the learning screen, `pages/sources/` attribution, `lib/feed.js` card logic, `content/` questions and glosses, and `test/` automated tests.
+This is a native WeChat Mini Program. `app.js`, `app.json`, and `app.wxss` define its shell; each route in `pages/` has matching `.js`, `.json`, `.wxml`, and `.wxss` files. `pages/feed/` is the learning flow, `pages/sources/` shows attribution, and `lib/feed.js` contains card logic. Sample questions and tap-to-define text live in `content/`, alongside source and editorial review records. `test/` holds unit, integration, and E2E tests; `scripts/build.js` produces `dist/miniprogram/`.
+
+`docs/PRD/PRD.md` is the single source of truth for product goals, requirements, acceptance criteria, and implementation order. Keep `README.md` focused on the current runnable version and developer setup. Update the PRD when changing product scope or acceptance rules; do not recreate the former root-level product, requirements, or roadmap documents.
 
 ## Task Isolation and Worktree Cleanup
 
