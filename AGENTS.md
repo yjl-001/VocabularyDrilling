@@ -2,22 +2,26 @@
 
 ## Project Structure
 
-`app.js`, `app.json`, and `app.wxss` define the app shell. `pages/feed/` contains the learning screen; `pages/sources/` contains attribution. `lib/feed.js` builds cards, `content/` holds sample questions and glosses, and `test/` holds Node tests. Requirements and editorial checks are in root Markdown files and `content/EDITORIAL_REVIEW.md`.
+`app.*` defines the app shell; `pages/feed/` and `pages/sources/` contain the screens. `lib/feed.js` builds cards, `content/` holds questions and glosses, and `test/` holds Node tests.
 
 ## Task Isolation
 
-Use one task, one `feature/<name>`, `fix/<name>`, `refactor/<name>`, or `experiment/<name>` branch, one isolated worktree, one Codex thread, and one pull request. Start from `main`; create a new worktree and branch before editing. Do not reuse worktrees or edit outside them. Read this file before coding. Treat `main` as the stable integration target: never edit, commit, or merge into it directly.
+Use one branch, worktree, Codex thread, and pull request per task. Branch from `main` with a `feature/`, `fix/`, `refactor/`, or `experiment/` prefix. Read this file before editing; keep changes inside the task worktree. Never edit or commit directly on `main`.
+
+## Worktree Cleanup
+
+Keep worktrees while PRs or review fixes are pending. After merge or explicit abandonment, confirm changes are preserved, review is complete, and no follow-up remains. Then remove the checkout to save disk space: archive Codex-managed worktrees or use `git worktree remove` for plain Git worktrees. Check dirty and ignored files first; decide branch deletion separately.
 
 ## Development and Validation
 
 - `npm test` runs all automated tests with `node:test`; no package install is needed.
 - Import the directory in WeChat Developer Tools and select **Compile** for the Mini Program build and simulator checks.
 
-No `build`, `lint`, integration, or E2E script exists; report only checks run. For UI changes, check swipes, feedback, source navigation, and restored progress in the simulator. Add `test/*.test.js` cases for changed card, storage, or content rules. Content must retain four distinct options, one target word per example, and complete glossary coverage; run `validateContent()` through the tests and review wording and attribution manually. A failed check blocks completion.
+Only `npm test` is automated here. For UI changes, check swipes, feedback, navigation, and resume in the simulator. Add `test/*.test.js` cases for changed behavior. Content needs four distinct options, one target word per example, and glossary coverage; the tests call `validateContent()`. Review wording and attribution manually. Failed checks block completion.
 
 ## Coding Style
 
-Follow nearby JavaScript: two-space indentation, single quotes, no semicolons, `camelCase` names, and `UPPER_SNAKE_CASE` constants. Shared modules use CommonJS. Keep each page's `.js`, `.json`, `.wxml`, and `.wxss` names aligned. No formatter or linter is configured.
+Follow nearby JavaScript: two-space indentation, single quotes, no semicolons, `camelCase` names, and `UPPER_SNAKE_CASE` constants. Keep each page's `.js`, `.json`, `.wxml`, and `.wxss` names aligned. No formatter or linter is configured.
 
 ## Commits and Pull Requests
 
