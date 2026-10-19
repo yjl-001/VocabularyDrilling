@@ -14,11 +14,16 @@ permissions:
   contents: read
 
 jobs:
-  unit-tests:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v7
         with:
           node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
       - run: npm test
+      - run: npm run test:integration
