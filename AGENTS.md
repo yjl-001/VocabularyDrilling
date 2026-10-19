@@ -6,18 +6,15 @@ This repository is a native WeChat Mini Program. `app.js`, `app.json`, and `app.
 
 ## Build, Test, and Development Commands
 
-- `npm test` (or `node --test`) runs all automated tests; no package install is required.
-- Import this directory into WeChat Developer Tools and select **Compile** to run the Mini Program locally. Use a personal AppID for upload or release; the checked-in configuration is for local testing.
-
-There is no separate build script or backend. Check UI changes in the simulator, including card swipes, answer feedback, source navigation, and progress after reopening.
+Run `npm ci` with Node.js 22.13+ or 24+ before development checks. `npm run lint` checks JavaScript; `npm run build` validates sources and creates `dist/miniprogram/` for WeChat Developer Tools. `npm test` runs unit tests; `npm run test:integration` tests the built project; `npm run check` runs all four checks. `npm run test:e2e` drives WeChat Developer Tools and requires its Service Port to be enabled locally. The build script does not replace a Developer Tools compile.
 
 ## Coding Style & Naming Conventions
 
-Follow the existing JavaScript style: two-space indentation, single quotes, no semicolons, and `camelCase` for variables and functions. Use `UPPER_SNAKE_CASE` for constants such as storage keys. Keep page files named after their route (`feed.js`, `feed.wxml`, and so on). Use CommonJS `require` and `module.exports` in shared logic. No formatter or linter is configured; keep changes consistent with nearby code.
+Follow the existing JavaScript style: two-space indentation, single quotes, no semicolons, and `camelCase` for variables and functions. Use `UPPER_SNAKE_CASE` for constants such as storage keys. Keep page files named after their route (`feed.js`, `feed.wxml`, and so on). Use CommonJS `require` and `module.exports` in shared logic. ESLint is configured in `eslint.config.js`; run it before committing.
 
 ## Testing Guidelines
 
-Tests use `node:test` and `node:assert/strict`; name files `*.test.js` under `test/`. Add focused tests for card ordering, answer restoration, storage behavior, or content validation when changing those rules. Run `npm test` before submitting. Content edits must preserve four distinct options, one target word per example, and glossary coverage; `validateContent()` checks these constraints. Also review wording and source attribution manually.
+Tests use `node:test` and `node:assert/strict`; name files `*.test.js` under `test/`. Add focused tests for card ordering, answer restoration, storage behavior, or content validation when changing those rules. Run `npm run check` before submitting; run E2E for UI changes when the Developer Tools automation service is available. Content edits must preserve four distinct options, one target word per example, and glossary coverage; `validateContent()` checks these constraints. Also review wording and source attribution manually.
 
 ## Commits & Pull Requests
 
